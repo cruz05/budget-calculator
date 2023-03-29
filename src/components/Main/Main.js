@@ -3,14 +3,12 @@ import styled from "styled-components";
 export const Main = styled.main`
     font-family: 'Roboto', 'Oxygen','Ubuntu',sans-serif;
     padding-block: 1.5rem;
-    width: 70%;
+    width: 55%;
     margin-inline: auto;
     box-sizing: border-box;
-     
-    & .react-icons {
-        font-size: 1rem;
-        color: rgb(255, 166, 0);
-        vertical-align: middle;
+    
+    @media (max-width: 530px) {
+        width:90%;
     }
 
     & h1 {

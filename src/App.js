@@ -1,25 +1,34 @@
 import { useEffect, useState } from "react";
 import {Footer} from "./components/Footer/Footer";
 import { Form } from "./components/Form/Form";
-import { Main } from "./Main";
+import { Main } from "./components/Main/Main";
 import { Label } from './components/Form/Label'
+import Panel from './components/Panel/Panel'
 
-const services = [{ label: 'A web page', price: 500, checked: false }, { label: 'A SEO consultancy', price: 300, checked: false }, { label: 'A Google Ads campaign', price: 200, checked: false }]
+const data = [{ label: 'A web page', price: 500, checked: false }, { label: 'A SEO consultancy', price: 300, checked: false }, { label: 'A Google Ads campaign', price: 200, checked: false }]
 
 function App() {
   const [total, setTotal] = useState(0)
-  const [checked, setChecked] = useState(services)
+  const [services, setServices] = useState(data)
+  const [customServices, setCustomServices] = useState({ pages: 1, languages: 1 })
+  const [subtotal,setSubtotal] = useState(0)
 
-  const changeState = (e, index) => {
-    const newStates = checked.map((service, i) => i === index ? { ...service, checked: e.target.checked } : service)
-    setChecked(newStates)
+  const changeState = (e, n) => {
+    if(n === 0 && !e.target.checked){
+      setCustomServices(prev => ({...prev, pages: 1, languages: 1}))
+    }
+    const newStates = services.map((service, i) => i === n ? { ...service, checked: e.target.checked } : service)
+    setServices(newStates)
   }
 
   useEffect(() => {
-    const sum = checked.filter(i => i.checked === true).reduce((accumulator, currentValue) => accumulator + currentValue.price, 0)
-    setTotal(sum)
-  }, [checked])
+    setSubtotal(customServices.pages * customServices.languages * 30)
+  }, [customServices])
 
+  useEffect(() => {
+    const sumPrices = services.filter(service => service.checked === true).reduce((accumulator, currentValue) => accumulator + currentValue.price, 0)
+    setTotal(sumPrices + subtotal)
+  }, [services, subtotal])
 
   return (
     <Main className="App">
@@ -31,8 +40,9 @@ function App() {
             return(
               <div key={i}>
                 <Label active={checked}>
-                  <input type="checkbox" onChange={e => changeState(e, i)} value={price}/> {`${label} (${price}€)`}
+                  <input type="checkbox" onChange={e => changeState(e, i)} value={price} /> {`${label} (${price}€)`}
                 </Label>
+                {(i === 0 && checked) && <Panel onAdd={setCustomServices} />}
               </div>
             )
           })
