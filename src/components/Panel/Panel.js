@@ -1,26 +1,19 @@
-import { useState, useEffect } from "react";
-import NumberInput from "../Form/NumberInput";
-import { StyledPanel } from "./StyledPanel";
+import { memo } from "react";
+import Counter from "../Counter/Counter";
+import { StyledPanel } from "./Panel.styles";
 // import {FaInfoCircle} from 'react-icons/fa'
 
-export default function Panel({onAdd}) {
-    const [pages, setPages] = useState(1)
-    const [languages, setLanguages] = useState(1)
-
-    useEffect(() => {
-        onAdd({pages, languages})
-    }, [pages, languages, onAdd])
-
+export default memo(function Panel({ services, setPages, setLangs}) {
     return (
         <StyledPanel>
             <div>
                 <label>Number of pages</label>
-                <NumberInput onChange={setPages} />
+                <Counter initialValue={services.pages} onChange={setPages} />
             </div>
             <div>
                 <label> Number of languages</label>
-                <NumberInput onChange={setLanguages}/>
+                <Counter initialValue={services.languages} onChange={setLangs} />
             </div>
         </StyledPanel>
     )
-}
+})

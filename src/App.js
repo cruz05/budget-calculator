@@ -1,59 +1,47 @@
-import { useEffect, useState } from "react";
-import {Footer} from "./components/Footer/Footer";
-import { Form } from "./components/Form/Form";
-import { Main } from "./components/Main/Main";
-import { Label } from './components/Form/Label'
-import Panel from './components/Panel/Panel'
+import { Fragment, useEffect, useState } from "react";
+import { Form } from "./components/Form/Form.styles";
+import useLocalStorage from './hooks/useLocalStorage'
+import Field from "./components/Field/Field";
+import Total from "./components/Total/Total";
+import Header from "./components/Header/Header";
+import useReduce from "./hooks/useReduce";
+import Panel from "./components/Panel/Panel";
+import { Main } from "./components/Main/Main.styles";
 
-const data = [{ label: 'A web page', price: 500, checked: false }, { label: 'A SEO consultancy', price: 300, checked: false }, { label: 'A Google Ads campaign', price: 200, checked: false }]
+const data = [{ label: 'Web page', price: 500 }, { label: 'SEO consultancy', price: 300 }, { label: 'Google Ads campaign', price: 200 }]
 
-function App() {
-  const [total, setTotal] = useState(0)
-  const [services, setServices] = useState(data)
-  const [customServices, setCustomServices] = useState({ pages: 1, languages: 1 })
-  const [subtotal,setSubtotal] = useState(0)
+export default function App() {
+    const [localData, setLocalData] = useLocalStorage({ key: 'services' })
+    const [customServices, setCustomServices] = useLocalStorage({ key: 'custom' })
+    const [services, setServices] = useState(localData || data)
+    const { state, setPages, setLangs, resetValues } = useReduce()
+    const [total, setTotal] = useState(0)
 
-  const changeState = (e, n) => {
-    if(n === 0 && !e.target.checked){
-      setCustomServices(prev => ({...prev, pages: 1, languages: 1}))
-    }
-    const newStates = services.map((service, i) => i === n ? { ...service, checked: e.target.checked } : service)
-    setServices(newStates)
-  }
+    useEffect(() => {
+        setCustomServices(state)
+    }, [state, setCustomServices])
 
-  useEffect(() => {
-    setSubtotal(customServices.pages * customServices.languages * 30)
-  }, [customServices])
+    useEffect(() => {
+        const result = services.filter(s => s.checked === true).reduce((accumulator, { price }) => accumulator + price, 0)
+        setTotal(result + state.subtotal)
+        setLocalData(services)
+    }, [services, setLocalData, state.subtotal])
 
-  useEffect(() => {
-    const sumPrices = services.filter(service => service.checked === true).reduce((accumulator, currentValue) => accumulator + currentValue.price, 0)
-    setTotal(sumPrices + subtotal)
-  }, [services, subtotal])
-
-  return (
-    <Main className="App">
-      <h1>¿What do you want to do?</h1>
-      <p>Choose the services you need</p>
-      <Form>
-        {
-          services.map(({label, price, checked}, i) => {
-            return(
-              <div key={i}>
-                <Label active={checked}>
-                  <input type="checkbox" onChange={e => changeState(e, i)} value={price} /> {`${label} (${price}€)`}
-                </Label>
-                {(i === 0 && checked) && <Panel onAdd={setCustomServices} />}
-              </div>
-            )
-          })
-        }
-      </Form>
-      <Footer>
-        <p className="text">Total Amount:</p> 
-        <p className="total">{total}€</p>
-      </Footer>
-    </Main>
-  );
+    return (
+        <Main>
+            <Header title='¿What do you want to do?' text='Choose the services you need' />
+            <Form>
+                {
+                    services.map(({ label, price, checked }, i) => {
+                        return (<Fragment key={i}>
+                            <Field id={i} label={label} price={price} checked={checked} setServices={setServices} reset={resetValues}/>
+                            {(i === 0 && checked) && <Panel services={customServices} setPages={setPages} setLangs={setLangs} />}
+                        </Fragment>)
+                    })
+                }
+            </Form>
+            <Total result={total} />
+        </Main>
+    );
 }
 
-export default App;

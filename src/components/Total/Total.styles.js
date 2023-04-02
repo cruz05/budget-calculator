@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Footer = styled.div`
+export const Budget = styled.div`
     display: grid;
     align-items: center;
     grid-template-columns: 3fr 1fr;
