@@ -4,7 +4,7 @@ export const StyledPanel = styled.div`
     border: 2px solid #5588ab;
     border-top: none;
     border-radius: 0 0 0.3rem 0.3rem;
-    margin-top: -2px;
+    margin-top: -15px;
     padding: 0.8rem 1rem;
     display: flex;
     justify-content: space-around;
