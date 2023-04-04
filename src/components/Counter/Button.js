@@ -6,6 +6,7 @@ export const Button = styled.button`
     padding-block: 0.2rem;
     border: none;
     border-radius: 0.2rem;
+    background-color: ${({bgColor}) => bgColor && 'transparent'};
 
     &:hover {
         background-color: #5588ab5b;
@@ -13,7 +14,7 @@ export const Button = styled.button`
 
     & > * {
         font-size: 0.7rem;
-        color: #5588ab;
+        color:  ${({color}) => color ||'#5588ab'};
         vertical-align: middle;
     }
 ` 
