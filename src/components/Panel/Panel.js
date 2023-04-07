@@ -16,6 +16,5 @@ export default memo(function Panel({ services, setPages, setLangs }) {
             </div>
         </StyledPanel>
 
-    </>
-    )
+    </>)
 })

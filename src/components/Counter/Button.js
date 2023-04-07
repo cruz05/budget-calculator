@@ -4,9 +4,10 @@ export const Button = styled.button`
     color: white;
     cursor: pointer;
     padding-block: 0.2rem;
+    padding-inline: ${({px}) => px && '0.7rem'};
     border: none;
     border-radius: 0.2rem;
-    background-color: ${({bgColor}) => bgColor && 'transparent'};
+    background-color: ${({bgColor}) => bgColor};
 
     &:hover {
         background-color: #5588ab5b;

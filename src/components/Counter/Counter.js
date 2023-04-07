@@ -27,7 +27,7 @@ function Counter({ field, initialValue, onChange }) {
       <input type='number' onChange={e => handleChange(e)} value={value} />
       <Button type='button' onClick={onMinus}><FaMinus /></Button>
       
-      <Button color='#898889' bgColor='none' onClick={() => setShowDialog(true)} type="button"><FaInfoCircle /></Button>
+      <Button color='#898889' bgColor='transparent' onClick={() => setShowDialog(true)} type="button"><FaInfoCircle /></Button>
       { showDialog && <Dialog field={field} onClick={() => setShowDialog(false)} />  }
     </div>
   )

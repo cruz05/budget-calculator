@@ -10,7 +10,7 @@ export const StyledPanel = styled.div`
     justify-content: space-around;
     gap: 0.5rem;
     flex-direction: column;
-    background-color: #5588ab0f;
+    background-color: rgba(236, 241, 245,0.25);
 
     & > div {
         padding-inline: 1.8rem;

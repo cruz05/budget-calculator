@@ -1,7 +1,7 @@
 import { memo } from 'react'
-import { Label } from './Label'
+import { CheckboxLabel } from './Checkbox.styles'
 
-export default memo(function Field({ id, label, price, checked, setServices, reset}) {
+export default memo(function Checkbox({ id, label, price, checked, setServices, reset}) {
     const handleChange = (e, n) => {
         if (n === 0 && !e.target.checked) {
             reset()
@@ -11,9 +11,9 @@ export default memo(function Field({ id, label, price, checked, setServices, res
 
     return (
         <>
-            <Label active={checked}>
+            <CheckboxLabel active={checked}>
                 <input type="checkbox" onChange={e => handleChange(e, id)} value={price} checked={checked || false} /> {`${label} (${price}€)`}
-            </Label>
+            </CheckboxLabel>
         </>
     )
 })
