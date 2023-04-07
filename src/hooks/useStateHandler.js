@@ -21,20 +21,19 @@ function reducer(state, action) {
 
   if (type === "reset_values") {
     return {
-      pages: 1,
-      languages: 1,
-      subtotal: 30,
+      ...state,
+      subtotal: 0,
     };
   }
 
   return state;
 }
 
-export default function useReduce() {
+export default function useStateHandler() {
   const [state, dispatch] = useReducer(reducer, {
     pages: 1,
     languages: 1,
-    subtotal: 30,
+    subtotal: 0
   });
 
   const setPages = useCallback((value) => {
