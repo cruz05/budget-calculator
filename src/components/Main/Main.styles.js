@@ -2,17 +2,20 @@ import styled from "styled-components";
 
 export const Main = styled.main`
     font-family: 'Roboto', 'Oxygen','Ubuntu',sans-serif;
-    padding: 0 1rem 1rem;
-    width: 80%;
+    padding: 1rem;
     display: flex;
     flex-flow: wrap row;
     gap: 1.5rem;
     justify-content: center;
+    align-items: center;
     margin-inline: auto;
-    box-sizing: border-box;
-
+    
     @media (max-width: 600px) {
         width:90%;
+    }
+    
+    & * {        
+        box-sizing: border-box;
     }
     
     & h1 {
@@ -24,14 +27,7 @@ export const Main = styled.main`
     }
 
     & section {
-        padding-top: 1rem;
-        min-width: 400px;
-    }
-        
-    & aside {
-        padding-top: 1.5rem;
-        @media (max-width: 1000px) {
-            border: none;
-        }
-    }
+        width: 370px;
+        padding: 0.5rem 1.5rem;
+    } 
     `
