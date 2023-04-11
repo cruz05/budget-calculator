@@ -5,14 +5,13 @@ export const DialogContent = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height:100%;
-    width:100%;
+    min-height: 100vh;
+    min-width: 100vw;
     background-color: rgba(0,0,0,0.6); 
 
     & > div {
-        min-width: 300px;
         text-align: center;
-        z-index: 2;
+        z-index: 5;
         position: absolute;
         left: 50%;
         top: 50%;

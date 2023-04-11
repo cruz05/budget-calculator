@@ -1,10 +1,12 @@
 import { FaPlus, FaMinus } from 'react-icons/fa'
-import { memo, useEffect, useState } from 'react';
+import { memo, useContext, useEffect, useState } from 'react';
 import { Button } from './Button';
 import { FaInfoCircle } from 'react-icons/fa'
 import Dialog from '../Dialog/Dialog';
+import { ServicesContext } from '../../hooks/useGlobalContext';
 
 function Counter({ field, initialValue, onChange }) {
+  const { setTotal } = useContext(ServicesContext)
   const [value, setValue] = useState(initialValue)
   const [showDialog, setShowDialog] = useState(false)
 
@@ -19,7 +21,8 @@ function Counter({ field, initialValue, onChange }) {
 
   useEffect(() => {
     onChange(value)
-  }, [value, onChange])
+    setTotal()
+  }, [setTotal, value, onChange])
 
   return (
     <div>

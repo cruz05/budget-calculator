@@ -13,11 +13,14 @@ export const StyledPanel = styled.div`
     background-color: rgba(236, 241, 245,0.25);
 
     & > div {
-        padding-inline: 1.8rem;
+        padding-inline: 1rem;
         display: flex;
-        align-items: strech;
-        flex-flow: row wrap;
-        gap: 0.5rem 2rem;
+        align-items: center;
+
+        & > div {
+            width:80%;
+            flex-grow: 1;
+        }
     }
 
     & input {

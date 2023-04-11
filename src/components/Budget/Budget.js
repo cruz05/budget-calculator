@@ -1,4 +1,4 @@
-export default function SavedBudget({title, client, total,date, services=[]}) {
+export default function Budget({title, client, total,date, services=[]}) {
   return (
     <div>
       <div>
@@ -7,7 +7,7 @@ export default function SavedBudget({title, client, total,date, services=[]}) {
         <ul>
           {services.map((s, i) => s.checked && <li key={i}>{s.label}</li>)}
         </ul>
-        <p className='date'>{date}</p>
+        <p className='date'>{new Date(date).toGMTString().split(' ').splice(1,4).join(' ')}</p>
       </div>
         <p>{total}€</p>
     </div>
